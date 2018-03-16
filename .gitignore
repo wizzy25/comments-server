@@ -37,7 +37,7 @@ node_modules/
 jspm_packages/
 
 # Dependency data
-package-lock.json/
+package-lock.json
 
 # Typescript v1 declaration files
 typings/

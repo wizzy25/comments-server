@@ -1,0 +1,59 @@
+#%RAML 1.0
+title: Comments API
+description: An API specification for managing comments on popular blogs
+version: v1
+protocols: [ HTTP ]
+baseUri: http://127.0.0.1:3000/
+mediaType: application/json
+securedBy: [basicAuth]
+securitySchemes:
+  basicAuth:
+    description: Each request must contain basic authentication headers
+    type: Basic Authentication
+    describedBy:
+      headers:
+        Authorization:
+          description: Used to send the Base64 encoded "username:password"
+          type: string
+types:
+  Comment:
+    type: object
+    properties:
+      id: integer
+      user: string
+      text: string
+    example:
+      id: 15
+      user: williamso
+      text: Notice here that an example comment has been written
+  Comments:
+    type: Comment[]
+/comments:
+  get:
+    description: Fetch all Comments from the server matching a query if provided else fetch all Comments
+    queryParameters:
+      user?: string
+    responses:
+      200:
+        body:
+          application/json:
+            type: Comments
+  post:
+    description: Create a new Comment
+    body:
+      application/json:
+        type: Comment
+    responses:
+      201:
+        body:
+          text/plain:
+            type: string
+            example: Successfully posted comment
+  /{id}:
+    get:
+      description: Get one Comment by id
+      responses:
+        200:
+          body:
+            application/json:
+    type: Comment
